@@ -1,0 +1,26 @@
+# Additional custom values for Cilium configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cilium-values
+  namespace: kube-system
+data:
+  values.yaml: |
+    # Additional configuration options for Cilium
+    # These values will be merged with the ones in the HelmRelease
+    operator:
+      replicas: 1
+      rollOutPods: true
+    
+    hubble:
+      enabled: true
+      relay:
+        enabled: true
+      ui:
+        enabled: true
+    
+    # Prometheus metrics
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
