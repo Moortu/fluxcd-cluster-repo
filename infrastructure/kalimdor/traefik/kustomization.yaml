@@ -3,5 +3,8 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ../../base/traefik
-patchesStrategicMerge:
-  - patches/traefik-values.yaml
+patches:
+  - path: patches/traefik-values.yaml
+    target:
+      kind: HelmRelease
+      name: traefik

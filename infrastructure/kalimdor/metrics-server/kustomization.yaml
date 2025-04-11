@@ -3,5 +3,8 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ../../base/metrics-server
-patchesStrategicMerge:
-  - patches/metrics-server-values.yaml
+patches:
+  - path: patches/metrics-server-values.yaml
+    target:
+      kind: HelmRelease
+      name: metrics-server

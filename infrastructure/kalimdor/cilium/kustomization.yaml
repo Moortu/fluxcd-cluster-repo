@@ -3,5 +3,8 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ../../base/cilium
-patchesStrategicMerge:
-  - patches/cilium-values.yaml
+patches:
+  - path: patches/cilium-values.yaml
+    target:
+      kind: HelmRelease
+      name: cilium

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  # Cluster-specific settings
+  CLUSTER_NAME: "kalimdor"
+  CILIUM_VERSION: "1.16.8"
+  TALOS_VERSION: "1.9.5"
+  KUBERNETES_VERSION: "1.29"
+  KUBE_PROXY_REPLACEMENT: "false"
+  # Network settings
+  POD_CIDR: "10.0.0.0/8"
+  SERVICE_CIDR: "10.96.0.0/12"
+  # Add any other variables you need for substitution

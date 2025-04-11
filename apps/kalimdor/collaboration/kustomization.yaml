@@ -2,6 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/collaboration
-patchesStrategicMerge:
+patches:
   # Add cluster-specific patches here
-  # - patches/values.yaml
+  # - path: patches/values.yaml
+  #   target:
+  #     kind: HelmRelease
+  #     name: collaboration
