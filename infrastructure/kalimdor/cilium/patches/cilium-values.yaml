@@ -8,11 +8,43 @@ data:
   values.yaml: |
     # Kalimdor cluster-specific Cilium configuration
     # These values will override the base configuration
-    kubeProxyReplacement: false  # As per your memory, this was specifically requested
+    
+    # Set to true for L2 announcements to work properly
+    # This overrides the previous setting of false
+    kubeProxyReplacement: true
     
     # Cilium version matching your Talos configuration
     image:
       repository: quay.io/cilium/cilium
       tag: v1.16.8  # Matching the version in your memory (1.16.8)
-      
-    # Additional cluster-specific settings can be added here
+    
+    # L2 announcement device configuration
+    # Specify the devices that should be used for L2 announcements
+    devices: "eth+"
+    
+    # Load balancer mode configuration
+    loadBalancer:
+      algorithm: "maglev"
+      mode: "dsr"
+      serviceTopology: true  # Enable topology-aware routing
+    
+    # Enable BPF masquerade for better performance
+    bpf:
+      masquerade: true
+    
+    # Enable native routing for better performance with L2 announcements
+    tunnel: "disabled"
+    autoDirectNodeRoutes: true
+    
+    # Configure IPAM for your specific network
+    ipam:
+      mode: kubernetes
+      operator:
+        # Adjust these values to match your network configuration
+        clusterPoolIPv4PodCIDR: "10.0.0.0/8"
+        clusterPoolIPv4MaskSize: 24
+    
+    # Bandwidth Manager tuning for home network
+    bandwidthManager:
+      enabled: true
+      bbr: true  # Better congestion control for home internet connections

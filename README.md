@@ -28,9 +28,49 @@ This repository contains the GitOps configurations for managing a Kubernetes clu
 The Cilium CNI configuration is based on the settings from the `terraform-proxmox-talos-k8s` project. It includes:
 
 - Version: 1.16.8 (matching Talos v1.9.5 configuration)
-- Configured for Talos Linux with kubeProxyReplacement set to false (as specifically requested)
-- Includes L2 announcements, ingress controller, Envoy proxy, and Hubble monitoring
-- Appropriate security context and capabilities
+- Configured with L2 announcements for external IPs and LoadBalancer services
+  - Enables direct external access to services without external load balancers
+  - Uses ARP for L2 announcements on eth+ interfaces
+  - Includes a default L2 announcement policy for all LoadBalancer services
+- Network Policies for enhanced security
+  - Fine-grained control over pod-to-pod communication
+  - DNS-based policies for controlling external access
+  - Example policies included but disabled by default
+- Bandwidth Manager with BBR congestion control
+  - Optimizes TCP connections for better performance
+  - Prevents any single workload from consuming all bandwidth
+- Host Firewall protection for node security
+  - Protects the Kubernetes nodes themselves
+  - Complements pod network policies
+- Load Balancer IP Address Management (LB IPAM)
+  - Automatic IP address management for LoadBalancer services
+  - Topology-aware routing for better performance
+- kubeProxyReplacement set to true with DSR mode and Maglev algorithm
+- Native routing with direct node routes for optimal traffic flow
+- Enhanced Hubble monitoring with detailed metrics
+  - DNS, HTTP, TCP, ICMP, and flow metrics
+  - UI and relay components for visualization
+- Prometheus metrics enabled with ServiceMonitor support
+
+### Traefik
+
+Traefik serves as the ingress controller for the cluster. Configuration includes:
+
+- Version: 35.0.0
+- Deployed as a LoadBalancer service
+- Configured with dashboard and API access
+- Integration with Cilium CNI
+- Resource limits and requests for optimal performance
+
+### Metrics Server
+
+The Metrics Server collects resource metrics from nodes and pods, enabling features like Horizontal Pod Autoscaler and providing metrics for `kubectl top` commands:
+
+- Version: 3.11.0
+- Configured for Talos with kubelet-insecure-tls flag
+- 15-second metric resolution for more responsive autoscaling
+- Prometheus-compatible metrics endpoint
+- Resource limits optimized for home cluster usage
 
 ## Usage
 

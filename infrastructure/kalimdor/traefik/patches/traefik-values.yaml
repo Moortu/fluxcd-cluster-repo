@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-values
+  namespace: kube-system
+data:
+  values.yaml: |
+    # Kalimdor cluster-specific Traefik configuration
+    # These values will override the base configuration
+    
+    # Configure for Cilium integration
+    # This works with your Cilium v1.16.8 setup
+    providers:
+      kubernetesCRD:
+        enabled: true
+        namespaces: []
+        ingressClass: traefik
+      kubernetesIngress:
+        enabled: true
+        namespaces: []
+        ingressClass: traefik
+    
+    # Additional security settings
+    additionalArguments:
+      - "--api.insecure=false"
+      - "--accesslog=true"
+      - "--log.level=INFO"
+      
+    # Resources configuration
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "50Mi"
+      limits:
+        cpu: "300m"
+        memory: "150Mi"

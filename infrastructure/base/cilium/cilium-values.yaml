@@ -8,16 +8,65 @@ data:
   values.yaml: |
     # Additional configuration options for Cilium
     # These values will be merged with the ones in the HelmRelease
+    
+    # Enable L2 announcements for external IPs
+    l2announcements:
+      enabled: true
+    
+    # Required for L2 announcements
+    kubeProxyReplacement: true
+    externalIPs:
+      enabled: true
+    
+    # Configure client rate limits to handle increased API usage
+    k8sClientRateLimit:
+      qps: 50
+      burst: 100
+    
+    # Network Policies - Enhanced security with minimal overhead
+    policy:
+      enabled: true
+      enforceNodeScope: true
+    
+    # Bandwidth Manager - Better TCP congestion control
+    bandwidthManager:
+      enabled: true
+      bbr: true
+    
+    # Host Firewall - Protect the Kubernetes nodes themselves
+    hostFirewall:
+      enabled: true
+    
+    # Load Balancer IP Address Management
+    ipam:
+      mode: kubernetes
+      operator:
+        clusterPoolIPv4PodCIDR: "10.0.0.0/8"
+        clusterPoolIPv4MaskSize: 24
+    
+    loadBalancer:
+      serviceTopology: true
+    
+    # Operator configuration
     operator:
       replicas: 1
       rollOutPods: true
     
+    # Hubble monitoring with enhanced metrics
     hubble:
       enabled: true
       relay:
         enabled: true
       ui:
         enabled: true
+      metrics:
+        enabled:
+          - dns
+          - drop
+          - tcp
+          - flow
+          - icmp
+          - http
     
     # Prometheus metrics
     prometheus:

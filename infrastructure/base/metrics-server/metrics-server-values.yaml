@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metrics-server-values
+  namespace: kube-system
+data:
+  values.yaml: |
+    # Default configuration for Metrics Server
+    
+    # Required for Talos/k3s clusters that use self-signed certificates
+    args:
+      - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP
+    
+    # Resource limits and requests
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+    
+    # Metrics Server configuration
+    metrics:
+      enabled: true
+    
+    # Service configuration
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "4443"
+    
+    # Pod security context
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000

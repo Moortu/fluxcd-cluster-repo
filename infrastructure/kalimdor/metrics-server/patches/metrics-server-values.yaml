@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metrics-server-values
+  namespace: kube-system
+data:
+  values.yaml: |
+    # Kalimdor cluster-specific Metrics Server configuration
+    # These values will override the base configuration
+    
+    # Additional arguments specific to your Talos cluster
+    args:
+      - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP
+      - --metric-resolution=15s  # More frequent metrics collection
+    
+    # Adjust resource limits based on your cluster size
+    # For a home cluster, these are reasonable values
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi

@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-values
+  namespace: kube-system
+data:
+  values.yaml: |
+    # Default Traefik configuration values
+    deployment:
+      replicas: 2
+    
+    # Enable the dashboard
+    ingressRoute:
+      dashboard:
+        enabled: true
+    
+    # Configure ports
+    ports:
+      web:
+        port: 8000
+        exposedPort: 80
+        expose: true
+        protocol: TCP
+      websecure:
+        port: 8443
+        exposedPort: 443
+        expose: true
+        protocol: TCP
+    
+    # Configure providers
+    providers:
+      kubernetesCRD:
+        enabled: true
+        namespaces: []
+      kubernetesIngress:
+        enabled: true
+        namespaces: []
+    
+    # Configure service
+    service:
+      enabled: true
+      type: LoadBalancer
+    
+    # Configure logs
+    logs:
+      general:
+        level: INFO
+      access:
+        enabled: true
