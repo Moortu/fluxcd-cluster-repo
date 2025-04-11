@@ -19,12 +19,12 @@ data:
       web:
         port: 8000
         exposedPort: 80
-        expose: true
+        expose: {}
         protocol: TCP
       websecure:
         port: 8443
         exposedPort: 443
-        expose: true
+        expose: {}
         protocol: TCP
     
     # Configure providers

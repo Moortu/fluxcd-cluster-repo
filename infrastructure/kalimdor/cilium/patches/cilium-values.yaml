@@ -33,7 +33,7 @@ spec:
       masquerade: true
     
     # Enable native routing for better performance with L2 announcements
-    tunnel: "disabled"
+    routingMode: "native"
     autoDirectNodeRoutes: true
     
     # Configure IPAM for your specific network
