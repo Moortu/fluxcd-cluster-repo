@@ -4,4 +4,3 @@ resources:
   - flux-system
   - infrastructure.yaml
   - apps.yaml
-  - cluster-settings.yaml

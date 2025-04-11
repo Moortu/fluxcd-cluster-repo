@@ -1,11 +1,11 @@
 # Cluster-specific overrides for Cilium configuration
-apiVersion: v1
-kind: ConfigMap
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
 metadata:
-  name: cilium-values
+  name: cilium
   namespace: kube-system
-data:
-  values.yaml: |
+spec:
+  values:
     # Kalimdor cluster-specific Cilium configuration
     # These values will override the base configuration
     
