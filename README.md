@@ -8,23 +8,23 @@ This repository contains the GitOps configurations for managing a Talos Kubernet
 ├── clusters/
 │   └── kalimdor/                  # Cluster name
 │       ├── flux-system/           # Flux components
-│       │   └── sops/              # SOPS GPG key and configuration
-│       ├── secrets/               # Encrypted secrets (*.sops.yaml)
+│       ├── sealed-secrets/         # Sealed Secrets by namespace
 │       ├── apps.yaml              # References apps for this cluster
 │       ├── infrastructure.yaml    # References infrastructure for this cluster
 │       └── kustomization.yaml     # Main cluster kustomization
 ├── infrastructure/
 │   ├── base/                      # Base infrastructure components
-│   │   └── cilium/                # Base Cilium CNI configuration
+│   │   ├── cilium/                # Base Cilium CNI configuration
+│   │   └── sealed-secrets/        # Sealed Secrets controller
 │   └── kalimdor/                  # Cluster-specific infrastructure overlays
 │       └── cilium/                # Cluster-specific Cilium overrides
 ├── apps/
 │   ├── base/                      # Base application definitions
 │   └── kalimdor/                  # Cluster-specific application overlays
 ├── scripts/                       # Utility scripts
-│   ├── setup-sops.ps1             # SOPS setup script
-│   └── manage-secrets.ps1         # Secret management script
-└── .sops.yaml                     # SOPS configuration file
+│   ├── manage-sealed-secrets.ps1  # Windows script for sealed secrets
+│   └── manage-sealed-secrets.sh   # Linux script for sealed secrets
+└── .gitignore                    # Git ignore file
 ```
 
 ## Components
