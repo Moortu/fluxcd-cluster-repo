@@ -9,13 +9,9 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: fluxcd-cluster-repo
   dependsOn:
     - name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-gpg
   postBuild:
     substituteFrom:
       - kind: ConfigMap

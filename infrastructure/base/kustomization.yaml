@@ -4,6 +4,7 @@ resources:
   - cilium
   - traefik
   - metrics-server
+  - sealed-secrets
   # Add other base infrastructure components as they're configured
   # - cert-manager
   # - cloudflared
