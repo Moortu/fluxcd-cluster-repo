@@ -16,7 +16,7 @@ spec:
     # Cilium version matching your Talos configuration
     image:
       repository: quay.io/cilium/cilium
-      tag: v1.16.8  # Matching the version in your memory (1.16.8)
+      tag: v1.17.2  # Matching the version in your memory (1.16.8)
     
     # L2 announcement device configuration
     # Specify the devices that should be used for L2 announcements
