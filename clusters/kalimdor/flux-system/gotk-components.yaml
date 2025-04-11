@@ -4023,7 +4023,7 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.api.kalimdor.lan./
+        - --events-addr=http://notification-controller.flux-system.svc.kalimdor.lan./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
@@ -4087,9 +4087,6 @@ spec:
         fsGroup: 1337
       serviceAccountName: helm-controller
       terminationGracePeriodSeconds: 600
-      tolerations:
-      - key: node.kubernetes.io.not-ready
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -5908,7 +5905,7 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.api.kalimdor.lan./
+        - --events-addr=http://notification-controller.flux-system.svc.kalimdor.lan./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
@@ -5972,9 +5969,6 @@ spec:
         fsGroup: 1337
       serviceAccountName: kustomize-controller
       terminationGracePeriodSeconds: 60
-      tolerations:
-      - key: node.kubernetes.io.not-ready
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -7932,9 +7926,6 @@ spec:
         fsGroup: 1337
       serviceAccountName: notification-controller
       terminationGracePeriodSeconds: 10
-      tolerations:
-      - key: node.kubernetes.io.not-ready
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -12513,13 +12504,13 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.api.kalimdor.lan./
+        - --events-addr=http://notification-controller.flux-system.svc.kalimdor.lan./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
         - --enable-leader-election
         - --storage-path=/data
-        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.api.kalimdor.lan.
+        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.kalimdor.lan.
         env:
         - name: RUNTIME_NAMESPACE
           valueFrom:
@@ -12586,9 +12577,6 @@ spec:
         fsGroup: 1337
       serviceAccountName: source-controller
       terminationGracePeriodSeconds: 10
-      tolerations:
-      - key: node.kubernetes.io.not-ready
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: data
@@ -13356,7 +13344,7 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.api.kalimdor.lan./
+        - --events-addr=http://notification-controller.flux-system.svc.kalimdor.lan./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
@@ -13419,9 +13407,6 @@ spec:
         fsGroup: 1337
       serviceAccountName: image-automation-controller
       terminationGracePeriodSeconds: 10
-      tolerations:
-      - key: node.kubernetes.io.not-ready
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -14389,7 +14374,7 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.api.kalimdor.lan./
+        - --events-addr=http://notification-controller.flux-system.svc.kalimdor.lan./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
@@ -14454,9 +14439,6 @@ spec:
         fsGroup: 1337
       serviceAccountName: image-reflector-controller
       terminationGracePeriodSeconds: 10
-      tolerations:
-      - key: node.kubernetes.io.not-ready
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
