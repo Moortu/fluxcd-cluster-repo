@@ -1,0 +1,18 @@
+# Cluster-specific overrides for Cilium configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cilium-values
+  namespace: kube-system
+data:
+  values.yaml: |
+    # Kalimdor cluster-specific Cilium configuration
+    # These values will override the base configuration
+    kubeProxyReplacement: false  # As per your memory, this was specifically requested
+    
+    # Cilium version matching your Talos configuration
+    image:
+      repository: quay.io/cilium/cilium
+      tag: v1.16.8  # Matching the version in your memory (1.16.8)
+      
+    # Additional cluster-specific settings can be added here
