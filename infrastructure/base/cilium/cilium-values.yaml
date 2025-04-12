@@ -51,6 +51,8 @@ data:
     operator:
       replicas: 1
       rollOutPods: true
+      prometheus:
+        enabled: true
     
     # Hubble monitoring with enhanced metrics
     hubble:
@@ -73,3 +75,4 @@ data:
       enabled: true
       serviceMonitor:
         enabled: true
+        trustCRDsExist: true
