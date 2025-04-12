@@ -36,6 +36,7 @@ spec:
     routingMode: "native"
     autoDirectNodeRoutes: true
     ipv4NativeRoutingCIDR: "10.0.0.0/8"
+    directRoutingDevice: "eth0"
     
     # Configure IPAM for your specific network
     ipam:
