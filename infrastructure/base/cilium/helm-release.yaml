@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: "1.16.8"  # Same version as used in Terraform
+      version: "1.17.2"  # Same version as used in Terraform
       sourceRef:
         kind: HelmRepository
         name: cilium
