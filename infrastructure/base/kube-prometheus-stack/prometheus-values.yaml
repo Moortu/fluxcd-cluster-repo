@@ -1,0 +1,84 @@
+# Additional custom values for kube-prometheus-stack configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-values
+  namespace: monitoring
+data:
+  values.yaml: |
+    # Global configuration
+    global:
+      rbac:
+        create: true
+      
+    # Prometheus Operator configuration
+    prometheusOperator:
+      enabled: true
+      tls:
+        enabled: false
+      admissionWebhooks:
+        failurePolicy: Ignore
+        
+    # Prometheus configuration
+    prometheus:
+      enabled: true
+      serviceAccount:
+        create: true
+      serviceMonitor:
+        selfMonitor: true
+      prometheusSpec:
+        podMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        retention: 10d
+        resources:
+          requests:
+            cpu: 200m
+            memory: 1Gi
+          limits:
+            memory: 2Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: standard
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 50Gi
+                  
+    # Alertmanager configuration
+    alertmanager:
+      enabled: true
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: standard
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
+    
+    # Grafana configuration
+    grafana:
+      enabled: true
+      adminPassword: prom-operator # Consider using a Sealed Secret instead
+      persistence:
+        enabled: true
+        storageClassName: standard
+        size: 10Gi
+      plugins:
+        - grafana-piechart-panel
+        - grafana-clock-panel
+      dashboards:
+        default:
+          cilium-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/master/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
+            datasource: Prometheus
+    
+    # Node exporter configuration
+    nodeExporter:
+      enabled: true
+    
+    # kube-state-metrics configuration
+    kubeStateMetrics:
+      enabled: true

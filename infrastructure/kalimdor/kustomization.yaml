@@ -4,6 +4,7 @@ resources:
   - cilium
   - traefik
   - metrics-server
+  - kube-prometheus-stack
   # Add other infrastructure components as they're configured
   # - cert-manager
   # - cloudflared

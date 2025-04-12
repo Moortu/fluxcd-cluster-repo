@@ -75,4 +75,3 @@ data:
       enabled: true
       serviceMonitor:
         enabled: true
-        trustCRDsExist: true
