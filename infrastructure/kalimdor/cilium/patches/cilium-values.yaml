@@ -53,17 +53,18 @@ spec:
     gatewayAPI:
       enabled: true
     
-    # Kubernetes service configuration for Talos with kubeProxyReplacement
+    # Explicitly allow outbound traffic to GitHub
+    ipv4:
+      enabled: true
+    enableXTSocketFallback: true
+    
+    # Kubernetes API endpoint configuration for Talos
     k8sServiceHost: "localhost"
     k8sServicePort: "7445"
     
-    # Cilium operator configuration for Talos
-    operator:
-      replicas: 1
-      rollOutPods: true
-      # Operator must also use the Talos API endpoint
-      k8sServiceHost: "localhost"
-      k8sServicePort: "7445"
+    # Auto-mount the necessary mounts (important for BPF functionality)
+    cgroup:
+      hostRoot: "/sys/fs/cgroup"
       
     # Performance optimizations
     sockops:
