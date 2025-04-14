@@ -6,8 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   values:
-    # Kalimdor cluster-specific Cilium configuration
-    # These values will override the base configuration
+    # Kalimdor cluster-specific Cilium configuration optimized for Talos with kube-proxy replacement
     
     # 1. Core configuration for Talos with kube-proxy replacement
     kubeProxyReplacement: true
@@ -19,63 +18,38 @@ spec:
       repository: quay.io/cilium/cilium
       tag: v1.17.2
     
-    # 3. Network device configuration
-    # Auto-detect network interfaces instead of hardcoding names
+    # 3. Network device configuration (auto-detection for maximum portability)
     devices: ""
     
-    # 4. Routing configuration
+    # 4. Routing configuration (optimized for Talos)
     routingMode: "native"
     autoDirectNodeRoutes: true
     ipv4NativeRoutingCIDR: "10.0.0.0/8"
     
-    # 5. Load balancer configuration
-    loadBalancer:
-      algorithm: "maglev"
-      mode: "dsr"
+    # 5. DNS configuration (essential for external connectivity)
+    dns:
+      enabled: true
+      enableNodePort: true
+      forwardKubeDNSToHost: false
     
     # 6. Network masquerading (required for GitHub connectivity)
     bpf:
       masquerade: true
     
-    # 7. DNS configuration (critical for external domain resolution)
-    dns:
-      enabled: true
-      enableNodePort: true
-    
-    # 8. Host-to-pod communication
-    hostServices:
-      enabled: true
-      protocols: tcp
-    
-    # 9. External connectivity options
+    # 7. External connectivity settings (optimized for kube-proxy replacement)
     externalIPs:
       enabled: true
-    hostPort:
-      enabled: true
-    nodePort:
-      enabled: true
-      strictMode: false
     
-    # 10. Additional connectivity features
-    ipv4:
-      enabled: true
-    enableXTSocketFallback: true
-    
-    # 11. Monitoring and observability
-    hubble:
-      relay:
-        enabled: true
-      ui:
-        enabled: true
-    
-    # 12. Gateway API support
+    # 8. Gateway API support with enhanced protocol capabilities
     gatewayAPI:
       enabled: true
+      enableAlpn: true
+      enableAppProtocol: true
     
-    # 13. Cgroup and BPF filesystem mounts (required for Talos)
+    # 9. Cgroup and BPF filesystem mounts (required for Talos)
     cgroup:
       hostRoot: "/sys/fs/cgroup"
     
-    # 14. Performance optimizations
-    sockops:
+    # 10. Critical connectivity settings for Talos
+    ipv4:
       enabled: true
