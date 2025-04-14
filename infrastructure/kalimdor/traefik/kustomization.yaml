@@ -3,12 +3,9 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ../../base/traefik
+  - depends-on-cilium.yaml
 patches:
   - path: patches/traefik-values.yaml
     target:
       kind: HelmRelease
       name: traefik
-# Ensure Traefik is deployed after Cilium CNI is ready
-dependsOn:
-  - name: cilium
-    namespace: kube-system

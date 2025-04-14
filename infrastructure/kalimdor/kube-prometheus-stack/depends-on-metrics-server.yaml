@@ -1,0 +1,20 @@
+---
+# This file defines a dependency relationship in FluxCD
+# It ensures Prometheus is deployed only after metrics-server is ready
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: prometheus-dependency
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: metrics-server
+      namespace: kube-system
+  path: ./infrastructure/kalimdor/kube-prometheus-stack
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  timeout: 2m0s
