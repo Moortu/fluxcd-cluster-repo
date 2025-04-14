@@ -52,3 +52,12 @@ spec:
     # 10. Critical connectivity settings for Talos
     ipv4:
       enabled: true
+      
+    # 11. Hubble configuration with correct cluster domain name
+    hubble:
+      relay:
+        enabled: true
+        # Use correct domain for your cluster
+        peerTarget: "hubble-peer.kube-system.svc.k8s.kalimdor.lan:443"
+      ui:
+        enabled: true

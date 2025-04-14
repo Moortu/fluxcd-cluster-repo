@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ../../base/traefik
-  - depends-on-cilium.yaml
 patches:
   - path: patches/traefik-values.yaml
     target:
