@@ -30,7 +30,6 @@ spec:
     dns:
       enabled: true
       enableNodePort: true
-      forwardKubeDNSToHost: false
     
     # 6. Network masquerading (required for GitHub connectivity)
     bpf:
