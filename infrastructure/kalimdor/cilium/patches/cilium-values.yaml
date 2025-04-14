@@ -56,6 +56,14 @@ spec:
     # Kubernetes service configuration for Talos with kubeProxyReplacement
     k8sServiceHost: "localhost"
     k8sServicePort: "7445"
+    
+    # Cilium operator configuration for Talos
+    operator:
+      replicas: 1
+      rollOutPods: true
+      # Operator must also use the Talos API endpoint
+      k8sServiceHost: "localhost"
+      k8sServicePort: "7445"
       
     # Performance optimizations
     sockops:
