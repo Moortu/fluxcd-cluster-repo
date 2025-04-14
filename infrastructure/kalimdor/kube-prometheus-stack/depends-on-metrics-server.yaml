@@ -7,6 +7,8 @@ metadata:
   name: prometheus-dependency
   namespace: flux-system
 spec:
+  # How often Flux should check for changes
+  interval: 5m0s
   dependsOn:
     - name: metrics-server
       namespace: kube-system
