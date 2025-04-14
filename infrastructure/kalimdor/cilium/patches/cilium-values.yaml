@@ -17,9 +17,9 @@ spec:
       repository: quay.io/cilium/cilium
       tag: v1.17.2
     
-    # Device configuration specific to Kalimdor
-    devices: "eth+"
-    directRoutingDevice: "eth0"
+    # Allow Cilium to auto-detect network devices
+    # This is more portable across different node configurations
+    devices: ""
     
     # Routing configuration for Kalimdor
     routingMode: "native"
