@@ -9,63 +9,73 @@ spec:
     # Kalimdor cluster-specific Cilium configuration
     # These values will override the base configuration
     
-    # Ensure kubeProxyReplacement is enabled for this cluster
+    # 1. Core configuration for Talos with kube-proxy replacement
     kubeProxyReplacement: true
+    k8sServiceHost: "localhost"
+    k8sServicePort: "7445"
     
-    # Cilium version for this specific cluster
+    # 2. Cilium version for this specific cluster
     image:
       repository: quay.io/cilium/cilium
       tag: v1.17.2
     
-    # Allow Cilium to auto-detect network devices
-    # This is more portable across different node configurations
+    # 3. Network device configuration
+    # Auto-detect network interfaces instead of hardcoding names
     devices: ""
     
-    # Routing configuration for Kalimdor
+    # 4. Routing configuration
     routingMode: "native"
     autoDirectNodeRoutes: true
     ipv4NativeRoutingCIDR: "10.0.0.0/8"
     
-    # Load balancer configuration for Kalimdor
+    # 5. Load balancer configuration
     loadBalancer:
       algorithm: "maglev"
       mode: "dsr"
-      
-    # Network masquerading
+    
+    # 6. Network masquerading (required for GitHub connectivity)
     bpf:
       masquerade: true
     
-    # Advanced connectivity settings for GitHub access
+    # 7. DNS configuration (critical for external domain resolution)
     dns:
       enabled: true
+      enableNodePort: true
     
+    # 8. Host-to-pod communication
     hostServices:
       enabled: true
       protocols: tcp
     
+    # 9. External connectivity options
+    externalIPs:
+      enabled: true
     hostPort:
       enabled: true
-    
     nodePort:
       enabled: true
       strictMode: false
-      
-    gatewayAPI:
-      enabled: true
     
-    # Explicitly allow outbound traffic to GitHub
+    # 10. Additional connectivity features
     ipv4:
       enabled: true
     enableXTSocketFallback: true
     
-    # Kubernetes API endpoint configuration for Talos
-    k8sServiceHost: "localhost"
-    k8sServicePort: "7445"
+    # 11. Monitoring and observability
+    hubble:
+      relay:
+        enabled: true
+      ui:
+        enabled: true
     
-    # Auto-mount the necessary mounts (important for BPF functionality)
+    # 12. Gateway API support
+    gatewayAPI:
+      enabled: true
+    
+    # 13. Cgroup and BPF filesystem mounts (required for Talos)
     cgroup:
       hostRoot: "/sys/fs/cgroup"
-      
-    # Performance optimizations
+    
+    # 14. Performance optimizations
     sockops:
       enabled: true

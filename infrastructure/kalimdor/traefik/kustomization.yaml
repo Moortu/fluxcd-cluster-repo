@@ -8,3 +8,7 @@ patches:
     target:
       kind: HelmRelease
       name: traefik
+# Ensure Traefik is deployed after Cilium CNI is ready
+dependsOn:
+  - name: cilium
+    namespace: kube-system

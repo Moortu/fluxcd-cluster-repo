@@ -3,6 +3,10 @@ kind: Kustomization
 resources:
   - ../../base/kube-prometheus-stack
 namespace: monitoring
+# Ensure Prometheus is deployed after metrics-server is ready
+dependsOn:
+  - name: metrics-server
+    namespace: kube-system
 # Using patches instead of patchesStrategicMerge as per current Kustomize standards
 # Add cluster-specific patches if needed
 # patches:
