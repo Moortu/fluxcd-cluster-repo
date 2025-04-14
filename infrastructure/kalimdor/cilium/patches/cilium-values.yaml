@@ -45,6 +45,47 @@ spec:
         # Adjust these values to match your network configuration
         clusterPoolIPv4PodCIDR: "10.0.0.0/8"
         clusterPoolIPv4MaskSize: 24
+        
+    # External connectivity configuration for GitHub access
+    externalIPs:
+      enabled: true
+      
+    # DNS configuration to ensure proper name resolution
+    dns:
+      enabled: true
+    
+    # Host network configuration to ensure outbound connectivity
+    hostServices:
+      enabled: true
+      protocols: tcp
+    
+    # Global settings for external connectivity
+    hostPort:
+      enabled: true
+    
+    # Enable proper NAT for outbound connections
+    tunnel: disabled
+    nodePort:
+      enabled: true
+      strictMode: false
+      
+    # Configure service mesh to allow external traffic
+    gatewayAPI:
+      enabled: true
+      
+    # Add explicit egress configuration to ensure GitHub connectivity
+    hubble:
+      enabled: true
+      metrics:
+        enabled:
+          - 'flow:sourceContext=app;destinationContext=app'
+    
+    k8sServiceHost: "kubernetes.default.svc"
+    k8sServicePort: 443
+      
+    # Use sockops for better performance
+    sockops:
+      enabled: true
     
     # Bandwidth Manager tuning for home network
     bandwidthManager:
