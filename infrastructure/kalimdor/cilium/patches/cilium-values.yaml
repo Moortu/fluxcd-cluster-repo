@@ -63,8 +63,9 @@ spec:
     hostPort:
       enabled: true
     
-    # Enable proper NAT for outbound connections
-    tunnel: disabled
+    # NodePort advanced configuration
+    
+    # NodePort configuration for external connectivity
     nodePort:
       enabled: true
       strictMode: false
