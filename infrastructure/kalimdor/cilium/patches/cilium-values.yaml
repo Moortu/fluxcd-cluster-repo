@@ -9,86 +9,54 @@ spec:
     # Kalimdor cluster-specific Cilium configuration
     # These values will override the base configuration
     
-    # Set to true for L2 announcements to work properly
-    # This overrides the previous setting of false
+    # Ensure kubeProxyReplacement is enabled for this cluster
     kubeProxyReplacement: true
     
-    # Cilium version matching your Talos configuration
+    # Cilium version for this specific cluster
     image:
       repository: quay.io/cilium/cilium
-      tag: v1.17.2  # Matching the version in your memory (1.16.8)
+      tag: v1.17.2
     
-    # L2 announcement device configuration
-    # Specify the devices that should be used for L2 announcements
+    # Device configuration specific to Kalimdor
     devices: "eth+"
+    directRoutingDevice: "eth0"
     
-    # Load balancer mode configuration
-    loadBalancer:
-      algorithm: "maglev"
-      mode: "dsr"
-      serviceTopology: true  # Enable topology-aware routing
-    
-    # Enable BPF masquerade for better performance
-    bpf:
-      masquerade: true
-    
-    # Enable native routing for better performance with L2 announcements
+    # Routing configuration for Kalimdor
     routingMode: "native"
     autoDirectNodeRoutes: true
     ipv4NativeRoutingCIDR: "10.0.0.0/8"
-    directRoutingDevice: "eth0"
     
-    # Configure IPAM for your specific network
-    ipam:
-      mode: kubernetes
-      operator:
-        # Adjust these values to match your network configuration
-        clusterPoolIPv4PodCIDR: "10.0.0.0/8"
-        clusterPoolIPv4MaskSize: 24
-        
-    # External connectivity configuration for GitHub access
-    externalIPs:
-      enabled: true
+    # Load balancer configuration for Kalimdor
+    loadBalancer:
+      algorithm: "maglev"
+      mode: "dsr"
       
-    # DNS configuration to ensure proper name resolution
+    # Network masquerading
+    bpf:
+      masquerade: true
+    
+    # Advanced connectivity settings for GitHub access
     dns:
       enabled: true
     
-    # Host network configuration to ensure outbound connectivity
     hostServices:
       enabled: true
       protocols: tcp
     
-    # Global settings for external connectivity
     hostPort:
       enabled: true
     
-    # NodePort advanced configuration
-    
-    # NodePort configuration for external connectivity
     nodePort:
       enabled: true
       strictMode: false
       
-    # Configure service mesh to allow external traffic
     gatewayAPI:
       enabled: true
-      
-    # Add explicit egress configuration to ensure GitHub connectivity
-    hubble:
-      enabled: true
-      metrics:
-        enabled:
-          - 'flow:sourceContext=app;destinationContext=app'
     
-    k8sServiceHost: "kubernetes.default.svc"
-    k8sServicePort: 443
+    # Kubernetes service configuration for Talos with kubeProxyReplacement
+    k8sServiceHost: "localhost"
+    k8sServicePort: "7445"
       
-    # Use sockops for better performance
+    # Performance optimizations
     sockops:
       enabled: true
-    
-    # Bandwidth Manager tuning for home network
-    bandwidthManager:
-      enabled: true
-      bbr: true  # Better congestion control for home internet connections
