@@ -24,14 +24,14 @@ spec:
     # 4. Routing configuration (optimized for Talos)
     routingMode: "native"
     autoDirectNodeRoutes: true
-    ipv4NativeRoutingCIDR: "10.0.0.0/8"
+    ipv4NativeRoutingCIDR: "10.244.0.0/16"
     
     # 5. DNS configuration (essential for external connectivity)
     dns:
       enabled: true
       enableNodePort: true
     
-    # 6. Network masquerading (required for GitHub connectivity)
+    # 6. Network masquerading and routing configuration
     bpf:
       masquerade: true
     
@@ -48,12 +48,28 @@ spec:
     # 9. Cgroup and BPF filesystem mounts (required for Talos)
     cgroup:
       hostRoot: "/sys/fs/cgroup"
+      autoMount:
+        enabled: false
     
     # 10. Critical connectivity settings for Talos
     ipv4:
       enabled: true
+    
+    # 11. IPAM configuration (required for proper IP address management)
+    ipam:
+      mode: kubernetes
+    
+    # 12. Required security context capabilities for Talos
+    securityContext:
+      capabilities:
+        ciliumAgent: ["CHOWN", "KILL", "NET_ADMIN", "NET_RAW", "IPC_LOCK", "SYS_ADMIN", "SYS_RESOURCE", "DAC_OVERRIDE", "FOWNER", "SETGID", "SETUID"]
+        cleanCiliumState: ["NET_ADMIN", "SYS_ADMIN", "SYS_RESOURCE"]
+    
+    # 13. Envoy proxy configuration
+    envoy:
+      enabled: true
       
-    # 11. Hubble configuration with correct cluster domain name
+    # 14. Hubble configuration with correct cluster domain name
     hubble:
       relay:
         enabled: true
