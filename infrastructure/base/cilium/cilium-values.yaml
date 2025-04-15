@@ -13,8 +13,7 @@ data:
     l2announcements:
       enabled: true
     
-    externalIPs:
-      enabled: true
+    # Base configuration for all clusters
     
     # Configure client rate limits to handle increased API usage
     k8sClientRateLimit:
@@ -35,7 +34,6 @@ data:
     hostFirewall:
       enabled: true
 
-    kubeProxyReplacement: true
     securityContext:
       capabilities:
         ciliumAgent: ["CHOWN", "KILL", "NET_ADMIN", "NET_RAW", "IPC_LOCK", "SYS_ADMIN", "SYS_RESOURCE", "DAC_OVERRIDE", "FOWNER", "SETGID", "SETUID"]
@@ -44,15 +42,11 @@ data:
       autoMount:
         enabled: false
       hostRoot: "/sys/fs/cgroup"
-    k8sServiceHost: "localhost"
-    k8sServicePort: "7445"
     ipam:
       mode: kubernetes
       operator:
         clusterPoolIPv4PodCIDR: "10.0.0.0/8"
         clusterPoolIPv4MaskSize: 24
-    
-    # (Removed loadBalancer block; now set in overlay patch)
     
     # Operator configuration
     operator:

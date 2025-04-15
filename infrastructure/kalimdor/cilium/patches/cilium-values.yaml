@@ -54,10 +54,7 @@ spec:
       standalone: true
       serviceTopology: true
     
-    # 11. Client rate limit for K8s API (required for L2 announcements)
-    k8sClientRateLimit:
-      qps: 20
-      burst: 40
+    # 11. Using base k8sClientRateLimit values (qps: 50, burst: 100)
     
     # 11. Cgroup and BPF filesystem mounts (required for Talos)
     cgroup:
