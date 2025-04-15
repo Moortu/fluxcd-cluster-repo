@@ -5,15 +5,11 @@ apiVersion: "cilium.io/v2alpha1"
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: kalimdor-lb-pool
+  namespace: kube-system
 spec:
   # Define the IP range for LoadBalancer services
-  cidrs:
+  blocks:
   - cidr: "10.0.20.0/24"
-    
-  # Optional: Reserve specific IPs that should not be assigned
-  # Useful for network equipment, gateways, etc.
-  # externalIPs:
-  # - "10.0.20.254"
     
   # Service selector - which services can use this pool
   # Empty means all services can use it
