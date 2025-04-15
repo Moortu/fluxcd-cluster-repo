@@ -48,8 +48,12 @@ spec:
     # 9. L2 announcements for service IPs at Layer 2 level
     l2announcements:
       enabled: true
+      
+    # 10. LoadBalancer configuration for L2 announcements
+    loadBalancer:
+      standalone: true
     
-    # 10. Client rate limit for K8s API (required for L2 announcements)
+    # 11. Client rate limit for K8s API (required for L2 announcements)
     k8sClientRateLimit:
       qps: 20
       burst: 40
