@@ -40,6 +40,9 @@ data:
     service:
       enabled: true
       type: LoadBalancer
+      annotations:
+        # Cilium LoadBalancer IP annotation for L2 announcements
+        io.cilium/lb-ipam-ips: "10.0.20.1"
     
     # Configure logs
     logs:
