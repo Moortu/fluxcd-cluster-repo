@@ -13,8 +13,7 @@ data:
     l2announcements:
       enabled: true
     
-    # Required for L2 announcements
-    kubeProxyReplacement: true
+    # (Removed kubeProxyReplacement; now set in overlay patch)
     externalIPs:
       enabled: true
     
@@ -44,8 +43,7 @@ data:
         clusterPoolIPv4PodCIDR: "10.0.0.0/8"
         clusterPoolIPv4MaskSize: 24
     
-    loadBalancer:
-      serviceTopology: true
+    # (Removed loadBalancer block; now set in overlay patch)
     
     # Operator configuration
     operator:
