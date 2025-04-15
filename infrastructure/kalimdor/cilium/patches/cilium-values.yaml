@@ -45,31 +45,40 @@ spec:
       enableAlpn: true
       enableAppProtocol: true
     
-    # 9. Cgroup and BPF filesystem mounts (required for Talos)
+    # 9. L2 announcements for service IPs at Layer 2 level
+    l2announcements:
+      enabled: true
+    
+    # 10. Client rate limit for K8s API (required for L2 announcements)
+    k8sClientRateLimit:
+      qps: 20
+      burst: 40
+    
+    # 11. Cgroup and BPF filesystem mounts (required for Talos)
     cgroup:
       hostRoot: "/sys/fs/cgroup"
       autoMount:
         enabled: false
     
-    # 10. Critical connectivity settings for Talos
+    # 12. Critical connectivity settings for Talos
     ipv4:
       enabled: true
     
-    # 11. IPAM configuration (required for proper IP address management)
+    # 13. IPAM configuration (required for proper IP address management)
     ipam:
       mode: kubernetes
     
-    # 12. Required security context capabilities for Talos
+    # 14. Required security context capabilities for Talos
     securityContext:
       capabilities:
         ciliumAgent: ["CHOWN", "KILL", "NET_ADMIN", "NET_RAW", "IPC_LOCK", "SYS_ADMIN", "SYS_RESOURCE", "DAC_OVERRIDE", "FOWNER", "SETGID", "SETUID"]
         cleanCiliumState: ["NET_ADMIN", "SYS_ADMIN", "SYS_RESOURCE"]
     
-    # 13. Envoy proxy configuration
+    # 15. Envoy proxy configuration
     envoy:
       enabled: true
       
-    # 14. Hubble configuration with correct cluster domain name
+    # 16. Hubble configuration with correct cluster domain name
     hubble:
       relay:
         enabled: true
