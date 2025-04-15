@@ -13,6 +13,9 @@ spec:
     k8sServiceHost: "localhost"
     k8sServicePort: "7445"
     
+    # 1a. Explicitly set datapath mode to prevent conflicts
+    datapathMode: "veth"
+    
     # 2. Cilium version for this specific cluster
     image:
       repository: quay.io/cilium/cilium
