@@ -5,6 +5,3 @@ resources:
   - helm-release.yaml
   - cilium-values.yaml
   - l2-announcement-policy.yaml
-  # Network policy examples are included but commented out by default
-  # Uncomment when you're ready to apply them
-  # - network-policy-examples.yaml

@@ -4,6 +4,7 @@ namespace: kube-system
 resources:
   - ../../base/cilium
   - l2-announce-policy.yaml
+  - lb-ipam-pool.yaml
 patches:
   - path: patches/cilium-values.yaml
     target:

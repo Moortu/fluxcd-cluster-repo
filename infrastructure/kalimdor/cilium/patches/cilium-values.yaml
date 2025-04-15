@@ -50,12 +50,9 @@ spec:
       enabled: true
       
     # 10. LoadBalancer configuration for L2 announcements
-    loadBalancer:
-      standalone: true
-      serviceTopology: true
-      
-    # 11. Explicitly set datapathMode to prevent Helm from injecting it automatically
-    datapathMode: "veth"
+    # loadBalancer:
+    #   standalone: true
+    #   serviceTopology: true
     
     # 11. Using base k8sClientRateLimit values (qps: 50, burst: 100)
     
