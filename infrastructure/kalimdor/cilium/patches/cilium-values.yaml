@@ -52,6 +52,7 @@ spec:
     # 10. LoadBalancer configuration for L2 announcements
     loadBalancer:
       standalone: true
+      serviceTopology: true
     
     # 11. Client rate limit for K8s API (required for L2 announcements)
     k8sClientRateLimit:
