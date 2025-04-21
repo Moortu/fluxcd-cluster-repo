@@ -45,7 +45,7 @@ data:
     ipam:
       mode: kubernetes
       operator:
-        clusterPoolIPv4PodCIDR: "10.0.0.0/8"
+        clusterPoolIPv4PodCIDR: "10.244.0.0/16"
         clusterPoolIPv4MaskSize: 24
     
     # Operator configuration
