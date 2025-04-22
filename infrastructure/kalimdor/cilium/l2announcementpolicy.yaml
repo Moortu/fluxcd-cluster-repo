@@ -7,11 +7,6 @@ spec:
   serviceSelector:
     matchLabels: {}
 
-  # Optionally restrict to Linux nodes (adjust as needed)
-  nodeSelector:
-    matchLabels:
-      kubernetes.io/os: linux
-
   # Announce on all network interfaces (can be restricted)
   interfaces:
     - ".*"
