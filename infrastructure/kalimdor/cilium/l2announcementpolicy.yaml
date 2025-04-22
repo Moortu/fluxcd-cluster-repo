@@ -1,0 +1,24 @@
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: announce-all-loadbalancers
+spec:
+  # Select all LoadBalancer services (default)
+  serviceSelector:
+    matchLabels: {}
+
+  # Optionally restrict to Linux nodes (adjust as needed)
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: linux
+
+  # Announce on all network interfaces (can be restricted)
+  interfaces:
+    - ".*"
+
+  # Announce both externalIPs and loadBalancerIPs as per Cilium docs
+  externalIPs: true
+  loadBalancerIPs: true
+
+  # Optionally, set a limit on the number of IPs to announce per node
+  # maxIPsPerNode: 2
