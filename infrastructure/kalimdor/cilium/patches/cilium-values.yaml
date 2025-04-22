@@ -7,7 +7,7 @@ metadata:
 spec:
   values:
     # Core configuration for Talos with kube-proxy replacement
-    kubeProxyReplacement: "true"
+    kubeProxyReplacement: true
     k8sServiceHost: "localhost"
     k8sServicePort: "7445"
     
