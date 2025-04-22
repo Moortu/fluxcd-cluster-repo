@@ -15,9 +15,11 @@ spec:
     ipam:
       mode: "kubernetes"
     
-    enable-l2-announcements: true
-    k8s-client-qps: 50   # Set your desired QPS value
-    k8s-client-burst: 100 # Set your desired BURST value
+    l2announcements:
+      enabled: true
+    k8sClientRateLimit:
+      qps: 50
+      burst: 100
 
     # Network masquerading configuration
     bpf:
