@@ -1,4 +1,4 @@
-# Additional custom values for Cilium configuration
+# Cilium configuration matching Terraform configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,73 +6,33 @@ metadata:
   namespace: kube-system
 data:
   values.yaml: |
-    # Additional configuration options for Cilium
-    # These values will be merged with the ones in the HelmRelease
+    # Core configuration for Talos with kube-proxy replacement
+    kubeProxyReplacement: "true"
+    k8sServiceHost: "localhost"
+    k8sServicePort: "7445"
     
-    # Enable L2 announcements for external IPs
-    l2announcements:
-      enabled: true
+    # IPAM configuration
+    ipam:
+      mode: "kubernetes"
     
-    # Base configuration for all clusters
+    # Network masquerading configuration
+    bpf:
+      masquerade: true
     
-    # Configure client rate limits to handle increased API usage
-    k8sClientRateLimit:
-      qps: 50
-      burst: 100
-    
-    # Network Policies - Enhanced security with minimal overhead
-    policy:
-      enabled: true
-      enforceNodeScope: true
-    
-    # Bandwidth Manager - Better TCP congestion control
-    bandwidthManager:
-      enabled: true
-      bbr: true
-    
-    # Host Firewall - Protect the Kubernetes nodes themselves
-    hostFirewall:
-      enabled: true
-
+    # Required security context capabilities for Talos
     securityContext:
       capabilities:
         ciliumAgent: ["CHOWN", "KILL", "NET_ADMIN", "NET_RAW", "IPC_LOCK", "SYS_ADMIN", "SYS_RESOURCE", "DAC_OVERRIDE", "FOWNER", "SETGID", "SETUID"]
         cleanCiliumState: ["NET_ADMIN", "SYS_ADMIN", "SYS_RESOURCE"]
+    
+    # Cgroup configuration for Talos
     cgroup:
       autoMount:
         enabled: false
       hostRoot: "/sys/fs/cgroup"
-    ipam:
-      mode: kubernetes
-      operator:
-        clusterPoolIPv4PodCIDR: "10.244.0.0/16"
-        clusterPoolIPv4MaskSize: 24
     
-    # Operator configuration
-    operator:
-      replicas: 1
-      rollOutPods: true
-      prometheus:
-        enabled: true
-    
-    # Hubble monitoring with enhanced metrics
-    hubble:
+    # Gateway API configuration
+    gatewayAPI:
       enabled: true
-      relay:
-        enabled: true
-      ui:
-        enabled: true
-      metrics:
-        enabled:
-          - dns
-          - drop
-          - tcp
-          - flow
-          - icmp
-          - http
-    
-    # Prometheus metrics
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: false
+      enableAlpn: true
+      enableAppProtocol: true

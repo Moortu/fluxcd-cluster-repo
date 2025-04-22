@@ -1,4 +1,4 @@
-# Cluster-specific overrides for Cilium configuration
+# Cilium configuration matching Terraform configuration
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -6,88 +6,42 @@ metadata:
   namespace: kube-system
 spec:
   values:
-    # Kalimdor cluster-specific Cilium configuration optimized for Talos with kube-proxy replacement
-    
-    # 1. Core configuration for Talos with kube-proxy replacement
-    kubeProxyReplacement: true
+    # Core configuration for Talos with kube-proxy replacement
+    kubeProxyReplacement: "true"
     k8sServiceHost: "localhost"
     k8sServicePort: "7445"
     
-    # 2. Cilium version for this specific cluster
-    image:
-      repository: quay.io/cilium/cilium
-      tag: v1.17.2
+    # IPAM configuration
+    ipam:
+      mode: "kubernetes"
     
-    # 3. Network device configuration (auto-detection for maximum portability)
-    devices: ""
-    
-    # 4. Routing configuration (optimized for Talos)
-    routingMode: "native"
-    autoDirectNodeRoutes: true
-    ipv4NativeRoutingCIDR: "10.244.0.0/16"
-    
-    # 5. DNS configuration (essential for external connectivity)
-    dns:
-      enabled: true
-      enableNodePort: true
-    
-    # 6. Network masquerading and routing configuration
+    enable-l2-announcements: true
+    k8s-client-qps: 50   # Set your desired QPS value
+    k8s-client-burst: 100 # Set your desired BURST value
+
+    # Network masquerading configuration
     bpf:
       masquerade: true
     
-    # 7. External connectivity settings (optimized for kube-proxy replacement)
-    externalIPs:
-      enabled: true
-    
-    # 8. Gateway API support with enhanced protocol capabilities
-    gatewayAPI:
-      enabled: true
-      enableAlpn: true
-      enableAppProtocol: true
-    
-    # 9. L2 announcements for service IPs at Layer 2 level
-    l2announcements:
-      enabled: true
-      
-    # 10. LoadBalancer configuration for L2 announcements
-    # loadBalancer:
-    #   standalone: true
-    #   serviceTopology: true
-    
-    # 11. Using base k8sClientRateLimit values (qps: 50, burst: 100)
-    
-    # 11. Cgroup and BPF filesystem mounts (required for Talos)
-    cgroup:
-      hostRoot: "/sys/fs/cgroup"
-      autoMount:
-        enabled: false
-    
-    # 12. Critical connectivity settings for Talos
-    ipv4:
-      enabled: true
-    
-    # 13. IPAM configuration (required for proper IP address management)
-    ipam:
-      mode: kubernetes
-      operator:
-        clusterPoolIPv4PodCIDR: "10.244.0.0/16"
-        clusterPoolIPv4MaskSize: 24
-    
-    # 14. Required security context capabilities for Talos
+    # Required security context capabilities for Talos
     securityContext:
       capabilities:
         ciliumAgent: ["CHOWN", "KILL", "NET_ADMIN", "NET_RAW", "IPC_LOCK", "SYS_ADMIN", "SYS_RESOURCE", "DAC_OVERRIDE", "FOWNER", "SETGID", "SETUID"]
         cleanCiliumState: ["NET_ADMIN", "SYS_ADMIN", "SYS_RESOURCE"]
     
-    # 15. Envoy proxy configuration
-    envoy:
+    # Cgroup configuration for Talos
+    cgroup:
+      autoMount:
+        enabled: false
+      hostRoot: "/sys/fs/cgroup"
+    
+    # Gateway API configuration
+    gatewayAPI:
       enabled: true
-      
-    # 16. Hubble configuration with correct cluster domain name
-    hubble:
-      relay:
-        enabled: true
-        # Use correct domain for your cluster
-        peerTarget: "hubble-peer.kube-system.svc.k8s.kalimdor.lan:443"
-      ui:
-        enabled: true
+      enableAlpn: true
+      enableAppProtocol: true
+    
+    # Cilium version for this specific cluster
+    image:
+      repository: quay.io/cilium/cilium
+      tag: v1.17.2
