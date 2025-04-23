@@ -41,7 +41,4 @@ spec:
       type: LoadBalancer
       annotations:
         # Manually assign specific IP for Cilium L2 announcements
-        io.cilium/lb-ipam-ips: "10.0.20.1"  # Replace with your desired Traefik IP
-      # Optional: Use this if you want to mark the service for L2 announcement policy
-      labels:
-        announce-l2: "true"
+        io.cilium/lb-ipam-ips: "10.0.20.2"  # Replace with your desired Traefik IP
