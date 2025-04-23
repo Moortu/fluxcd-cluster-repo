@@ -17,3 +17,11 @@ spec:
 
   # Optionally, set a limit on the number of IPs to announce per node
   # maxIPsPerNode: 2
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l2-pool
+spec:
+  cidrs:
+    - cidr: 10.0.20.0/24  # Adjust this range as needed to include all desired L2 IPs

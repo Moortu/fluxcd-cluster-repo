@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ../../base/cilium
-  - l2announcementpolicy.yaml
+  - cilium-l2.yaml
 patches:
   - path: patches/cilium-values.yaml
     target:
