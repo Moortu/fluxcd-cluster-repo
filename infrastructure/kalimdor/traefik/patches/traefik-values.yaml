@@ -41,4 +41,4 @@ spec:
       type: LoadBalancer
       annotations:
         # Manually assign specific IP for Cilium L2 announcements
-        io.cilium/lb-ipam-ips: "10.0.20.2"  # Replace with your desired Traefik IP
+       lbipam.cilium.io/ips: "10.0.20.2"  # Replace with your desired Traefik IP

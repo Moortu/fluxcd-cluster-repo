@@ -39,12 +39,6 @@ data:
     # Configure service
     service:
       enabled: true
-      type: LoadBalancer
-      # Use Cilium L2 announcer LoadBalancer class
-      loadBalancerClass: "io.cilium/l2-announcer"
-      annotations:
-        # Cilium LoadBalancer IP annotation for L2 announcements
-        lbipam.cilium.io/ips: "10.0.20.1"
     
     # Configure logs
     logs:

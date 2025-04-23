@@ -53,7 +53,7 @@ spec:
         service:
           type: LoadBalancer
           annotations:
-            io.cilium/lb-ipam-ips: 10.0.20.10
+           lbipam.cilium.io/ips: 10.0.20.10
 
     # Cilium version for this specific cluster
     image:
