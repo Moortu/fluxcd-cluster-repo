@@ -9,3 +9,7 @@ patches:
     target:
       kind: HelmRelease
       name: cilium
+  - path: patches/hubble-ui-lb.yaml
+    target:
+      kind: Service
+      name: hubble-ui
