@@ -42,7 +42,15 @@ spec:
       enabled: true
       enableAlpn: true
       enableAppProtocol: true
-    
+
+    # Hubble observability
+    hubble:
+      enabled: true
+      relay:
+        enabled: true
+      ui:
+        enabled: true
+
     # Cilium version for this specific cluster
     image:
       repository: quay.io/cilium/cilium
