@@ -24,4 +24,4 @@ metadata:
   name: l2-pool
 spec:
   blocks:
-    - cidr: 10.0.20.0/24  # Adjust this range as needed to include all desired L2 IPs
+  - cidr: "10.0.20.0/24"
